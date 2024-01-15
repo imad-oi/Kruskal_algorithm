@@ -1,6 +1,6 @@
 import "./cirucle-icons.css";
 
-export default function CircaleIcons() {
+export default function CircleIcons() {
   return <>
     <ul id="menu">
       <a className="menu-button icon-plus" id="open-menu" title="Show navigation"></a>
