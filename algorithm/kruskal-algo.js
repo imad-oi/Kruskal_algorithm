@@ -24,7 +24,7 @@ class Graph {
         }
     }
 
-    kruskalMST() {
+    kruskalMST(color ="blue") {
         const result = [];
         this.edges.sort((a, b) => a.width - b.width);
 
@@ -48,7 +48,7 @@ class Graph {
 
             if (root1 !== root2) {
                 result[resultIndex++] = { source, target, width };
-                edge.color = "blue"
+                edge.color = color
                 this.union(parent, rank, root1, root2);
             }
         }
@@ -73,11 +73,11 @@ const minimumSpanningTree = graph.kruskalMST();
 console.log("Minimum Spanning Tree:", minimumSpanningTree);
 */
 
-export default function kruskalAlgo(data) {
+export default function kruskalAlgo(data, color = "blue") {
     const graph = new Graph(data.nodes.length);
     data.links.forEach(link => graph.addEdge(link.source, link.target, link.width))
     return {
         nodes: data.nodes,
-        links: graph.kruskalMST()
+        links: graph.kruskalMST(color)
     }
 }
