@@ -4,8 +4,8 @@ class Graph {
         this.edges = [];
     }
 
-    addEdge(source, target, width) {
-        this.edges.push({ source, target, width });
+    addEdge(source, target, weigth) {
+        this.edges.push({ source, target, weigth });
     }
 
     findRoot(parent, vertex) {
@@ -26,7 +26,7 @@ class Graph {
 
     kruskalMST(color ="blue") {
         const result = [];
-        this.edges.sort((a, b) => a.width - b.width);
+        this.edges.sort((a, b) => a.weigth - b.weigth);
 
         const parent = [];
         const rank = [];
@@ -42,12 +42,12 @@ class Graph {
         while (resultIndex < this.numVertices - 1) {
             const edge = this.edges[edgeIndex++];
 
-            const { source, target, width } = edge;
+            const { source, target, weigth } = edge;
             const root1 = this.findRoot(parent, source);
             const root2 = this.findRoot(parent, target);
 
             if (root1 !== root2) {
-                result[resultIndex++] = { source, target, width };
+                result[resultIndex++] = { source, target, weigth };
                 edge.color = color
                 this.union(parent, rank, root1, root2);
             }
@@ -62,7 +62,7 @@ class Graph {
 const numVertices = 4;
 const graph = new Graph(numVertices);
 
-// Adding edges (source, target, width)
+// Adding edges (source, target, weigth)
 graph.addEdge(0, 1, 10);
 graph.addEdge(0, 2, 6);
 graph.addEdge(0, 3, 5);
@@ -75,7 +75,7 @@ console.log("Minimum Spanning Tree:", minimumSpanningTree);
 
 export default function kruskalAlgo(data, color = "blue") {
     const graph = new Graph(data.nodes.length);
-    data.links.forEach(link => graph.addEdge(link.source, link.target, link.width))
+    data.links.forEach(link => graph.addEdge(link.source, link.target, link.weigth))
     return {
         nodes: data.nodes,
         links: graph.kruskalMST(color)

@@ -1,8 +1,9 @@
 import { Form, Button } from "./HeaderBar.jsx";
 import { useState } from "react";
 
+const initLink = { source: "", target: "", weigth: 1 };
 export default function AddNodeModal({ data, setData }) {
-  const [link, setLink] = useState({weigth: 1});
+  const [link, setLink] = useState({ ...initLink });
   const handleInputChange = (e) => {
     const { value, name } = e.target;
     setLink((prev) => ({
@@ -12,43 +13,42 @@ export default function AddNodeModal({ data, setData }) {
   };
 
   const isLinkValid = () => {
-    return link?.source !== undefined && link.source?.trim().length > 0;
-  }
+    return link.source?.trim().length > 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const newData = { nodes: data.nodes, links: data.links };
+
     console.log(link);
     if (!isLinkValid) {
-      setLink({weigth: 1});
+      setLink({ ...initLink });
       return;
     }
 
     const sourceAlreadyExists = data?.nodes?.some((node) => node.id === link.source);
-    console.log(sourceAlreadyExists)
+    console.log(sourceAlreadyExists);
 
-    if (link?.target === undefined) {
+    if (link?.target === "") {
+      if (!sourceAlreadyExists) newData.nodes = [...data?.nodes, { id: link.source }];
+    } else {
       if (sourceAlreadyExists) {
-        setLink({weigth: 1});
-        return;
+        const linkAlreadyExists = data?.links?.some(l =>
+          l.source === link.source
+          && l.target === link.target
+          && l.weigth === link.weigth
+        );
+        if (!linkAlreadyExists) newData.links = [...data?.links, link];
+      } else {
+        newData.nodes = [...data.nodes, { id: link.source }];
+        newData.links = [...data?.links, link];
       }
-      else setData((prev) => ({
-        nodes: [...prev.nodes, { id: link.source }],
-        links: data.links
-      }));
-    }
-    else {
-      if (sourceAlreadyExists) setData((prev) => ({
-        nodes: [...prev?.nodes],
-        links: [...prev?.links, link]
-      }))
-      else setData((prev) => ({
-        nodes: [...prev.nodes, { id: link.source }],
-        links: [...prev?.links, link]
-      }));
     }
 
-    setLink({weigth: 1});
+    console.log(newData)
+    setData(newData)
+    setLink({ ...initLink });
   };
 
   return <>
@@ -61,7 +61,7 @@ export default function AddNodeModal({ data, setData }) {
           name="source" type="text" placeholder="Source Node" className="input"
         />
         <select
-          className="select w-full" defaultValue={""}
+          className="select w-full"
           disabled={data?.nodes?.length === 0}
           onChange={(e) => handleInputChange(e)} value={link?.target}
           name="target" id="target" placeholder="Target Node"
@@ -77,4 +77,4 @@ export default function AddNodeModal({ data, setData }) {
       </Form>
     </div>
   </>;
-}
+};

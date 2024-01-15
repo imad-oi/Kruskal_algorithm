@@ -7,12 +7,12 @@ import GraphConfig from "./components/GraphConfig.jsx";
 import Alert from "./components/Alert.jsx";
 
 const defaultData = {
-  nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }],
+  nodes: [/*{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }*/],
   links: [
-    { source: "Harry", target: "Sally", weigth: 1 },
-    { source: "Harry", target: "Alice", weigth: 1 },
-    { source: "Sally", target: "Alice", weigth: 1 },
-    { source: "Jerry", target: "Alice", weigth: 1 },
+    // { source: "Harry", target: "Sally", weigth: 1 },
+    // { source: "Harry", target: "Alice", weigth: 1 },
+    // { source: "Sally", target: "Alice", weigth: 1 },
+    // { source: "Jerry", target: "Alice", weigth: 1 },
   ],
 };
 

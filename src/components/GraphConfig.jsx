@@ -4,7 +4,7 @@ const linkType = {
   CURVE_FULL: "CURVE_FULL ",
 };
 
-const type = linkType.CURVE_SMOOTH;
+const type = linkType.CURVE_FULL;
 const renderLabel = true;
 const labelProperty = (link) => {
   return `${link.weigth}`;
