@@ -4,12 +4,40 @@ import HeaderBar from "./components/HeaderBar";
 import axios from "axios";
 import "./App.css";
 import GraphConfig from "./components/GraphConfig.jsx";
+import Alert from "./components/Alert.jsx";
+import { config as initialConfig } from "./components/GraphConfig.jsx";
 
-const defaultData = { nodes: [], links: [] };
+const defaultData = {
+  nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }],
+  links: [
+    { source: "Harry", target: "Sally", weigth: 1 },
+    { source: "Harry", target: "Alice", weigth: 1 },
+    { source: "Sally", target: "Alice", weigth: 1 },
+    { source: "Jerry", target: "Alice", weigth: 1 },
+  ],
+};
 
 export default function App() {
   const [data, setData] = useState(defaultData);
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState(initialConfig);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [nodesToBeDeleted, setNodesToBeDeleted] = useState([]); // [nodeId1, nodeId2, ...
+
+  data.nodes.forEach((node) => {
+    node.color = getNodeColor(node?.id);
+  });
+  
+  function getNodeColor(nodeId) {
+    // Vérifiez si le nœud est dans la liste nodesToBeDeleted
+    const isNodeToBeDeleted = nodesToBeDeleted.some(
+      (deletedNode) => deletedNode?.id === nodeId
+    );
+  
+    // Utilisez une couleur spécifique si le nœud doit être supprimé
+    return isNodeToBeDeleted ? '#FF0000' : config?.node?.color;
+  
+
+  }
 
   const handleApplyKruskal = async () => {
     try {
@@ -39,19 +67,33 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen w-full">
-      <div  className="">
+      <div className="">
         <HeaderBar
           data={data}
           setData={setData}
           applyKruskal={handleApplyKruskal}
+          setAlertMessage={setAlertMessage}
+          nodesToBeDeleted={nodesToBeDeleted}
+          setNodesToBeDeleted={setNodesToBeDeleted}
         />
       </div>
-      <div  className="flex flex-grow ">
+      <div className="flex flex-grow ">
         <div className="w-1/5">
-          <GraphConfig setConfig={setConfig} />
+          <GraphConfig
+            nodesToBeDeleted={nodesToBeDeleted}
+            setNodesToBeDeleted={setNodesToBeDeleted}
+            setConfig={setConfig}
+          />
         </div>
         <div className="w-4/5">
-          <GraphFeed data={data} config={config} />
+          <Alert message={alertMessage} />
+
+          <GraphFeed
+            nodesToBeDeleted={nodesToBeDeleted}
+            setNodesToBeDeleted={setNodesToBeDeleted}
+            data={data}
+            config={config}
+          />
         </div>
       </div>
     </div>
