@@ -21,14 +21,14 @@ export const Modal = ({ children, hideBtn, showBtn }) => {
 
   return (
     <>
-      <button onClick={() => setShouldShow(true)}> {showBtn} </button>
+      <button  className="btn" onClick={() => setShouldShow(true)}> {showBtn} </button>
       {shouldShow && (
           <ModalBody
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <button onClick={() => setShouldShow(false)}> {hideBtn} </button>
+            <button  className="btn" onClick={() => setShouldShow(false)}> {hideBtn} </button>
             {children}
           </ModalBody>
       )}

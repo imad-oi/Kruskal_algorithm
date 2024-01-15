@@ -1,12 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'vanilla': "#E6E49F",
+        'black': "#25291C",
+        'sliver': "#BDC2BF",
+        'beige': "#E3E7D3",
+      },
+    },
   },
   plugins: [],
-}
-
+};

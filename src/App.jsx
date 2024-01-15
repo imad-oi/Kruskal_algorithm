@@ -20,13 +20,17 @@ export default function App() {
       const transformedMSTEdges = mstEdges.map((edge) => [edge[0], edge[1]]);
 
       const updatedLinks = data.links.map((link) => {
-        const isMSTEdge = transformedMSTEdges.some((edge) => edge[0] === link.source && edge[1] === link.target);
+        const isMSTEdge = transformedMSTEdges.some(
+          (edge) => edge[0] === link.source && edge[1] === link.target
+        );
         return {
-          ...link, color: isMSTEdge ? "green" : "#d3d3d3" // Change color based on MST or not
+          ...link,
+          color: isMSTEdge ? "green" : "#d3d3d3", // Change color based on MST or not
         };
       });
       setData((prevData) => ({
-        ...prevData, links: updatedLinks
+        ...prevData,
+        links: updatedLinks,
       }));
     } catch (error) {
       console.log(error);
@@ -34,19 +38,22 @@ export default function App() {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <HeaderBar
-        data={data}
-        setData={setData}
-        applyKruskal={handleApplyKruskal}
-      />
-      <div style={{ display: "flex" }}>
-        <div className="w-[70%]">
-          <GraphFeed data={data} config={config} />
-        </div>
-        <div className="w-[30%] h-[100vh]">
+    <div className="flex flex-col h-screen w-full">
+      <div  className="">
+        <HeaderBar
+          data={data}
+          setData={setData}
+          applyKruskal={handleApplyKruskal}
+        />
+      </div>
+      <div  className="flex flex-grow ">
+        <div className="w-1/5">
           <GraphConfig setConfig={setConfig} />
         </div>
+        <div className="w-4/5">
+          <GraphFeed data={data} config={config} />
+        </div>
       </div>
-    </div>);
+    </div>
+  );
 }

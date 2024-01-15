@@ -8,47 +8,64 @@
   font-weight: 400;
 }
 
-
 body {
   margin: 0;
-  place-items: center; 
-  min-width: 320px;
-  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: gainsboro;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 100%;
   }
-  a:hover {
-    color: #747bff;
+  .btn {
+    @apply inline-block px-4 py-2 text-sm font-medium leading-5 text-center text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700  active:bg-indigo-700;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .btn-submit {
+    @apply inline-block px-4 py-2 text-sm font-medium leading-5 text-center text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700  active:bg-green-700;
+  }
+
+  .input {
+    @apply block w-full px-3 py-2 text-base leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none  focus:border-blue-300 sm:text-sm sm:leading-5;
+  }
+
+  .heading-1 {
+    @apply text-3xl font-extrabold leading-9 text-center bg-transparent text-violet-300;
+  }
+
+  .heading-2 {
+    @apply text-2xl font-extrabold leading-9 text-center bg-transparent text-violet-300;
+  }
+
+  .heading-3 {
+    @apply text-xl font-extrabold leading-9 text-center bg-transparent text-violet-300;
+  }
+
+  .heading-5 {
+    @apply text-lg font-bold leading-6 text-center bg-transparent text-violet-300;
+  }
+
+  .drawer {
+    @apply fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center;
+  }
+
+  .sidebar {
+    @apply fixed inset-y-0 left-0 z-50 flex-shrink-0 w-64 bg-white border-r border-gray-200 transform ease-in-out duration-300;
+  }
+
+  .right-sidebar {
+    @apply fixed inset-y-0 right-0 z-50 flex-shrink-0 w-64 bg-white border-l border-gray-200 transform ease-in-out duration-300;
+  }
+
+  .select {
+    @apply block  px-3 py-2 text-base leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none  focus:border-blue-300 sm:text-sm sm:leading-5;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium leading-5 text-gray-700;
+  }
+
+  .input-color-picker {
+    @apply block w-full px-3 py-2 text-base leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none  focus:border-blue-300 sm:text-sm sm:leading-5;
   }
 }
