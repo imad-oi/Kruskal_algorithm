@@ -3,52 +3,52 @@ import { Modal } from "./ui/Modal";
 import { useState } from "react";
 
 const NavBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 4px;
-  padding: 5px;
-  // position : fixed;
-  width: 100%;
-  background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    padding: 5px;
+    width: 100%;
+    background-color: lightgray;
 `;
 
 const ButtonList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 4px;
-  padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    padding: 5px;
 `;
 
 const Input = styled.input`
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  /* Add more styles as needed */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
 `;
 const Select = styled.select`
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  /* Add more styles as needed */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+`;
+
+const Form = styled.form`
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 `;
 
 const HeaderBar = ({ setData, data, applyKruskal }) => {
-  const [link, setLink] = useState({
-    source: "",
-    target: "",
-    weigth: 0,
-    color: "black",
-  });
+  const [link, setLink] = useState({ source: "", target: "", weigth: 1 });
 const [sommet, setSommet] = useState({})
   const handleInputChange = (e) => {
     const { value, name } = e.target;
     setLink((prev) => ({
       ...prev,
-      [name]: name === "weigth" ? parseInt(value) : value,
+      [name]: name === "weigth" ? parseInt(value) : value
     }));
   };
   const handleInputChangeSommet = (e) => {
@@ -77,22 +77,34 @@ const [sommet, setSommet] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const sourceAlreadyExists = data.nodes.some(
       (node) => node.id === link.source
     );
 
+    if (link.source && link.target === "") {
+      if (sourceAlreadyExists) return;
+      else {
+        const links = data.links;
+        setData((prev) => ({
+          nodes: [...prev.nodes, { id: link.source }],
+          links: data.links
+        }));
+      }
+      return;
+    }
+
     if (!sourceAlreadyExists) {
       setData((prev) => ({
         nodes: [...prev.nodes, { id: link.source }],
-        links: [...prev.links, link],
+        links: [...prev.links, link]
       }));
     } else {
       console.log("Source already exists:", link.source);
       setData((prev) => ({
         nodes: [...prev.nodes],
-        links: [...prev.links, link],
+        links: [...prev.links, link]
       }));
-      // Handle the case where the source already exists
     }
   };
 
@@ -101,31 +113,26 @@ const [sommet, setSommet] = useState({})
       <h3>Kruskal algorithme</h3>
       <ButtonList>
         <button onClick={applyKruskal}>Apply Kruskal</button>
-        <Modal hideBtn={"cancel"} showBtn={"add"}>
-          <div>
-            <h1>Add new noeud</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+        <Modal hideBtn={"cancel"} showBtn={"add"} style={{margin: "auto 0 0 auto"}}>
+          <div className="add-modal">
+            <h2>Add new noeud</h2>
+            <Form onSubmit={(e) => handleSubmit(e)}>
               <Input
                 onChange={(e) => handleInputChange(e)}
-                name="source"
-                type="text"
-                placeholder="source noeud"
+                name="source" type="text"
+                placeholder="Source Node"
               />
               <Select
                 onChange={(e) => handleInputChange(e)}
-                name="target"
-                id="target"
+                name="target" id="target"
+                placeholder="Target Node"
               >
-                <option disabled value="">
-                  Select target
-                </option>
-                {data &&
-                  data.nodes?.map((item) => (
-                    <option value={item.id}>{item.id}</option>
-                  ))}
+                <option disabled value="" selected>Select target</option>
+                {data?.nodes?.map(item => <option key={data?.nodes.indexOf(item)} value={item.id}>{item.id}</option>)}
               </Select>
               <Input
                 onChange={(e) => handleInputChange(e)}
+                value={link.weigth}
                 name="weigth"
                 type="number"
                 placeholder="link weigth"
@@ -133,13 +140,14 @@ const [sommet, setSommet] = useState({})
 
               <Input
                 type="submit"
-                disabled={!link.source || !link.target || !link.weigth}
+                disabled={!link.source}
                 value="add"
               />
-            </form>
+            </Form>
           </div>
         </Modal>
-        <button>Delete noeud</button>
+        <button>Update Node</button>
+        <button>Delete Node</button>
         <Modal hideBtn={"cancel"} showBtn={"supprimer"}>
           <div>
             <h1>Supprimer un Sommet</h1>

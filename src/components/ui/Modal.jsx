@@ -1,23 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const ModalBackground = styled.div`
+const ModalBody = styled.div`
     position: fixed;
-    left: 0;
+    right: 0;
     top: 0;
     z-index: 1;
-    width: 100%;
+    max-width: 300px;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow: auto;
-`;
-
-const ModalBody = styled.div`
     background-color: white;
-    margin: 10% 20%;
+    margin: auto 0 0 auto;
     padding: 20px;
     width: 60%;
-    border-radius: 20px;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0 0 7px 2px #888;
 `;
 
 export const Modal = ({ children, hideBtn, showBtn }) => {
@@ -27,11 +23,6 @@ export const Modal = ({ children, hideBtn, showBtn }) => {
     <>
       <button onClick={() => setShouldShow(true)}> {showBtn} </button>
       {shouldShow && (
-        <ModalBackground
-          onClick={() => {
-            setShouldShow(false);
-          }}
-        >
           <ModalBody
             onClick={(e) => {
               e.stopPropagation();
@@ -40,7 +31,6 @@ export const Modal = ({ children, hideBtn, showBtn }) => {
             <button onClick={() => setShouldShow(false)}> {hideBtn} </button>
             {children}
           </ModalBody>
-        </ModalBackground>
       )}
     </>
   );

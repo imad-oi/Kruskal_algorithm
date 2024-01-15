@@ -3,6 +3,7 @@ import { useState } from "react";
 const linkType = {
   STRAIGHT: "STRAIGHT", CURVE_SMOOTH: "CURVE_SMOOTH", CURVE_FULL: "CURVE_FULL "
 };
+
 const type = linkType.CURVE_SMOOTH;
 const renderLabel = true;
 const labelProperty = (link) => {
@@ -59,7 +60,7 @@ const GraphConfig = ({ setConfig }) => {
     }
     setConfig(config1)
   };
-  
+
 
 
   return (

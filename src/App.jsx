@@ -7,9 +7,10 @@ import axios from "axios";
 import "./App.css";
 import GraphConfig from "./components/GraphConfig.jsx";
 
+/*, breakPoints: [{ x: 40, y: 20 }, { x: 40, y: 20 }]*/
 const defaultData = {
-  nodes: [{ id: "imad" }, { id: "elhabib" }, { id: "hamza" }],
-  links: [{ source: "imad", target: "hamza", weigth: 2 }, { source: "imad", target: "elhabib", weigth: 3 }]
+  nodes: [],
+  links: []
 };
 
 export default function App() {
