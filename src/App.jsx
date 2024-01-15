@@ -7,6 +7,7 @@ import GraphConfig from "./components/GraphConfig";
 import GraphData from "./components/GraphData";
 import axios from "axios";
 import { config } from "./config";
+import "./App.css"
 
 
 function App() {
@@ -14,8 +15,8 @@ function App() {
     nodes: [{ id: "imad" }, { id: "elhabib" }, { id: "hamza" }],
     links: [
       { source: "imad", target: "hamza", weigth: 2, color: "black" },
-      { source: "imad", target: "elhabib", weigth: 3, color: "black" },
-    ],
+      { source: "imad", target: "elhabib", weigth: 3, color: "black" }
+    ]
   });
 
   const handleApplyKruskal = async () => {
@@ -32,12 +33,12 @@ function App() {
         );
         return {
           ...link,
-          color: isMSTEdge ? "green" : "#d3d3d3", // Change color based on MST or not
+          color: isMSTEdge ? "green" : "#d3d3d3" // Change color based on MST or not
         };
       });
       setData((prevData) => ({
         ...prevData,
-        links: updatedLinks,
+        links: updatedLinks
       }));
     } catch (error) {
       console.log(error);
@@ -48,7 +49,7 @@ function App() {
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "100vh"
       }}
     >
       <HeaderBar
@@ -58,31 +59,20 @@ function App() {
       />
       <div
         style={{
-          display: "flex",
+          display: "flex"
         }}
       >
         <div
           style={{
-            flex: 3,
+            flex: 3
           }}
         >
-          <div>
-            <GraphFeed data={data} config={config} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            {/* <GraphConfig data={data} />
-            <GraphData /> */}
-          </div>
+          <GraphFeed data={data} config={config} />
         </div>
 
         <div
           style={{
-            flex: 1,
+            flex: 1
           }}
         >
           <RightBar />
