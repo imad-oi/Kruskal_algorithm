@@ -1,7 +1,7 @@
-
+import '../index.css'
 const RightBar = () => {
   return (
-    <div>RightBar</div>
+    <div className="text-white bg-black">RightBar</div>
   )
 }
 

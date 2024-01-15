@@ -11,6 +11,8 @@ const PreStyled = styled.pre`
 `;
 
 const GraphConfig = ({ data }) => {
+  data.links[0].color="#FFFFFF";
+  console.log(data.links[0].color);
   return (
     <div
       style={{

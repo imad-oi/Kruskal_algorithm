@@ -8,6 +8,7 @@ import GraphData from "./components/GraphData";
 import axios from "axios";
 import { config } from "./config";
 
+
 function App() {
   const [data, setData] = useState({
     nodes: [{ id: "imad" }, { id: "elhabib" }, { id: "hamza" }],
@@ -74,8 +75,8 @@ function App() {
               justifyContent: "space-between",
             }}
           >
-            <GraphConfig data={data} />
-            <GraphData />
+            {/* <GraphConfig data={data} />
+            <GraphData /> */}
           </div>
         </div>
 
