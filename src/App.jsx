@@ -1,13 +1,11 @@
 // App.js
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GraphFeed from "./components/GraphFeed";
-import RightBar from "./components/RightBar";
 import HeaderBar from "./components/HeaderBar";
 import axios from "axios";
 import "./App.css";
 import GraphConfig from "./components/GraphConfig.jsx";
 
-/*, breakPoints: [{ x: 40, y: 20 }, { x: 40, y: 20 }]*/
 const defaultData = {
   nodes: [],
   links: []
@@ -39,29 +37,20 @@ export default function App() {
     }
   };
 
-  return (<div style={{ width: "100vw", height: "100vh" }}
-  >
-    <HeaderBar
-      data={data}
-      setData={setData}
-      applyKruskal={handleApplyKruskal}
-    />
-    <div
-      style={{
-        display: "flex"
-      }}
-    >
-      <div
-       className="w-[70%]"
-      >
-        <GraphFeed data={data} config={config} />
+  return (
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <HeaderBar
+        data={data}
+        setData={setData}
+        applyKruskal={handleApplyKruskal}
+      />
+      <div style={{ display: "flex" }}>
+        <div className="w-[70%]">
+          <GraphFeed data={data} config={config} />
+        </div>
+        <div className="w-[30%] h-[100vh]">
+          <GraphConfig setConfig={setConfig} />
+        </div>
       </div>
-
-      <div
-        className="w-[30%] h-[100vh]"
-      >
-        <GraphConfig setConfig={setConfig} />
-      </div>
-    </div>
-  </div>);
+    </div>);
 }
