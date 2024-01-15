@@ -43,7 +43,7 @@ const HeaderBar = ({ setData, data, applyKruskal }) => {
     weigth: 0,
     color: "black",
   });
-
+const [sommet, setSommet] = useState({})
   const handleInputChange = (e) => {
     const { value, name } = e.target;
     setLink((prev) => ({
@@ -51,6 +51,29 @@ const HeaderBar = ({ setData, data, applyKruskal }) => {
       [name]: name === "weigth" ? parseInt(value) : value,
     }));
   };
+  const handleInputChangeSommet = (e) => {
+  setSommet(e.target.value)
+  console.log(e.target.value);
+  }
+  const deletSommet=()=>{
+
+
+    let index = data.nodes.indexOf(data.nodes.find(node => node.id ===sommet))
+    console.log(index);
+    data.nodes.splice(index, 1)
+    data.links.forEach(element => {
+      if (element.target === sommet ||element.source === sommet) {
+        
+    let index = data.links.indexOf(sommet)
+    data.links.splice(index, 1)
+      }
+    });
+  
+    setData({
+      nodes: data.nodes,
+      links: data.links
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,6 +140,40 @@ const HeaderBar = ({ setData, data, applyKruskal }) => {
           </div>
         </Modal>
         <button>Delete noeud</button>
+        <Modal hideBtn={"cancel"} showBtn={"supprimer"}>
+          <div>
+            <h1>Supprimer un Sommet</h1>
+            {/* <form onSubmit={deletSommet}> */}
+              {/* <Input
+                onChange={(e) => handleInputChange(e)}
+                name="source"
+                type="text"
+                placeholder="source noeud"
+              /> */}
+              <Select
+                onChange={(e) => handleInputChangeSommet(e)}
+                name="sommet"
+                id="sommet"
+              >
+                <option disabled value="">
+                  Select Sommet
+                </option>
+                {data &&
+                  data.nodes?.map((item) => (
+                    <option value={item.id}>{item.id}</option>
+                  ))}
+              </Select>
+              {/* <Input
+                onChange={(e) => handleInputChange(e)}
+                name="weigth"
+                type="number"
+                placeholder="link weigth"
+              /> */}
+
+              <button onClick={deletSommet}>Suprimmer</button>
+            {/* </form> */}
+          </div>
+        </Modal>
       </ButtonList>
     </NavBar>
   );
