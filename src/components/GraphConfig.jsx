@@ -18,7 +18,7 @@ const symbolType = {
   TRIANGLE: "triangle",
   WYE: "wye",
 };
-const config = {
+export const config = {
   nodeHighlightBehavior: true,
   node: {
     color: "#000000",
@@ -35,6 +35,10 @@ const config = {
     labelProperty,
     type,
     renderLabel,
+  },
+  d3: {
+    gravity: -300,
+    linkLength: 120,
   },
 };
 
@@ -66,17 +70,53 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
     };
     setConfig(config1);
   };
+  const handleTypeChange = (e) => {
+    config.link.type = e.target.value;
+    const config1 = {
+      nodeHighlightBehavior: true,
+      node: { ...config.node },
+      link: { ...config.link },
+    };
+    setConfig(config1);
+  };
+  const handleInputChangeFonsize=(e)=>{
+    config.node.fontSize = e.target.value;
+    const config1 = {
+      nodeHighlightBehavior: true,
+      node: { ...config.node },
+      link: { ...config.link },
+    };
+    setConfig(config1);
+  }
+  const handleInputChangeFonsizeWeight=(e)=>{
+    config.link.fontSize = e.target.value;
+    const config1 = {
+      nodeHighlightBehavior: true,
+      node: { ...config.node },
+      link: { ...config.link },
+    };
+    setConfig(config1);
+  }
+  const handleInputChangsize=(e)=>{
+    config.node.size = e.target.value;
+    const config1 = {
+      nodeHighlightBehavior: true,
+      node: { ...config.node },
+      link: { ...config.link },
+    };
+    setConfig(config1);
+  }
 
   return (
-    <div className="bg-slate-50 h-full border-e p-2">
+    <div className="bg-slate-50 h-full border-e p-2 space-y-4">
       <h3 className="text-center">
         <span className="heading-1 py-4">Configuration</span>
       </h3>
-      <hr className="my-2" />
-      <div className=" flex flex-col items-start gap-">
+      <hr className="my-2"/>
+      <div className=" flex flex-col items-start gap-3">
         <div className="flex justify-between items-center w-full">
           <label htmlFor="colorPicker" className="heading-5">
-            Couleur des Arret :
+            Color Of Link :
           </label>
           <input
             className=""
@@ -88,7 +128,7 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
         </div>
         <div className="flex justify-between items-center w-full">
           <label className="heading-5" htmlFor="colornode">
-            Couleur des Sommets :{" "}
+           Color Node :{" "}
           </label>
           <input
             type="color"
@@ -99,10 +139,10 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
         </div>
         <div className="flex justify-between items-center w-full">
           <label className="heading-5" htmlFor="symbolSelect">
-            Symbole :{" "}
+            Symbole  Node :{" "}
           </label>
           <select
-            className="select"
+            className="select w-[50%]"
             id="symbolSelect"
             value={config.node.symbolType}
             onChange={handleSymbolChange}
@@ -113,6 +153,62 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
               </option>
             ))}
           </select>
+        </div>
+        <div className="flex justify-between items-center w-full">
+          <label className="heading-5" htmlFor="symbolSelect">
+            Type Link :{" "}
+          </label>
+          <select
+            className="select w-[50%]"
+            id="symbolSelect"
+            value={config.link.type}
+            onChange={handleTypeChange}
+          >
+            {Object.values(linkType).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex justify-between items-center w-full">
+
+          <label htmlFor="fontsize" className="heading-5"> Font Size Node</label>
+        <input
+                onChange={ handleInputChangeFonsize}
+                value={config.node.fontSize}
+                name="weigth"
+                type="number"
+                id="fontsize"
+                placeholder=""
+                className="input w-[50%]"
+              />
+        </div>
+        <div className="flex justify-between items-center w-full">
+
+          <label htmlFor="sizenode" className="heading-5"> Size of Node</label>
+        <input
+                onChange={ handleInputChangsize}
+                value={config.node.size}
+                name="weigth"
+                type="number"
+                id="sizenode"
+                placeholder=""
+                className="input w-[50%]"
+              />
+        </div>
+        <div className="flex justify-between items-center w-full">
+
+          <label htmlFor="fontsizeweight" className="heading-5"> Font Size Weight</label>
+        <input
+                onChange={ handleInputChangeFonsizeWeight}
+                value={config.link.fontSize}
+                name="weigth"
+                type="number"
+                id="fontsizeweight"
+                placeholder=""
+                className="input w-[50%]"
+              />
         </div>
       </div>
       {/* nodes to be deleted */}

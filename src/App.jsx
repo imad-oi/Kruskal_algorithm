@@ -5,6 +5,7 @@ import axios from "axios";
 import "./App.css";
 import GraphConfig from "./components/GraphConfig.jsx";
 import Alert from "./components/Alert.jsx";
+import { config as initialConfig } from "./components/GraphConfig.jsx";
 
 const defaultData = {
   nodes: [/*{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }*/],
@@ -18,9 +19,25 @@ const defaultData = {
 
 export default function App() {
   const [data, setData] = useState(defaultData);
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState(initialConfig);
   const [alertMessage, setAlertMessage] = useState("");
   const [nodesToBeDeleted, setNodesToBeDeleted] = useState([]); // [nodeId1, nodeId2, ...
+
+  data.nodes.forEach((node) => {
+    node.color = getNodeColor(node?.id);
+  });
+  
+  function getNodeColor(nodeId) {
+    // Vérifiez si le nœud est dans la liste nodesToBeDeleted
+    const isNodeToBeDeleted = nodesToBeDeleted.some(
+      (deletedNode) => deletedNode?.id === nodeId
+    );
+  
+    // Utilisez une couleur spécifique si le nœud doit être supprimé
+    return isNodeToBeDeleted ? '#FF0000' : config?.node?.color;
+  
+
+  }
 
   const handleApplyKruskal = async () => {
     try {
