@@ -1,4 +1,3 @@
-// App.js
 import { useState } from "react";
 import GraphFeed from "./components/GraphFeed";
 import HeaderBar from "./components/HeaderBar";
@@ -6,10 +5,7 @@ import axios from "axios";
 import "./App.css";
 import GraphConfig from "./components/GraphConfig.jsx";
 
-const defaultData = {
-  nodes: [],
-  links: []
-};
+const defaultData = { nodes: [], links: [] };
 
 export default function App() {
   const [data, setData] = useState(defaultData);
