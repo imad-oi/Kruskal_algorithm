@@ -41,7 +41,14 @@ const Form = styled.form`
   flex-wrap: wrap;
 `;
 
-const HeaderBar = ({ setData, data, applyKruskal }) => {
+const HeaderBar = ({
+  setData,
+  data,
+  applyKruskal,
+  setAlertMessage,
+  nodesToBeDeleted,
+  setNodesToBeDeleted,
+}) => {
   const [link, setLink] = useState({ source: "", target: "", weigth: 1 });
   const [sommet, setSommet] = useState({});
   const handleInputChange = (e) => {
@@ -107,6 +114,30 @@ const HeaderBar = ({ setData, data, applyKruskal }) => {
     }
   };
 
+  const handleDeleteNodes = () => {
+    if (nodesToBeDeleted.length === 0) {
+      setAlertMessage("please select  nodes to delete");
+      setTimeout(() => {
+        setAlertMessage("");
+      }, 3000);
+    }
+    const updatedNodes = data.nodes.filter(
+      (node) => !nodesToBeDeleted.some((n) => n.id === node.id)
+    );
+    const updatedLinks = data.links.filter(
+      (link) =>
+        !nodesToBeDeleted.some((node) =>
+          node.links.some((l) => l.source === link.source)
+        )
+    );
+    setData((prevData) => ({
+      ...prevData,
+      nodes: updatedNodes,
+      links: updatedLinks,
+    }));
+    setNodesToBeDeleted([]);
+  };
+
   return (
     <nav className="bg-black py-6 flex flex-col ">
       <h3 className="heading-1 pb-5">Kruskal algorithme</h3>
@@ -164,8 +195,9 @@ const HeaderBar = ({ setData, data, applyKruskal }) => {
             </Form>
           </div>
         </Modal>
-        {/* <button className="btn">Update Node</button> */}
-        <button className="btn">Delete Nodes</button>
+        <button className="btn" onClick={() => handleDeleteNodes()}>
+          Delete Nodes
+        </button>
         <button
           className="btn"
           onClick={() => setData({ nodes: [], links: [] })}
