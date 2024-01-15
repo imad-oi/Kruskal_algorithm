@@ -148,38 +148,17 @@ const [sommet, setSommet] = useState({})
         </Modal>
         <button>Update Node</button>
         <button>Delete Node</button>
+        <button onClick={() => setData({nodes: [], links: []})}>Delete Graph</button>
         <Modal hideBtn={"cancel"} showBtn={"supprimer"}>
           <div>
-            <h1>Supprimer un Sommet</h1>
-            {/* <form onSubmit={deletSommet}> */}
-              {/* <Input
-                onChange={(e) => handleInputChange(e)}
-                name="source"
-                type="text"
-                placeholder="source noeud"
-              /> */}
-              <Select
-                onChange={(e) => handleInputChangeSommet(e)}
-                name="sommet"
-                id="sommet"
-              >
-                <option disabled value="">
-                  Select Sommet
-                </option>
-                {data &&
-                  data.nodes?.map((item) => (
+            <h2>Supprimer un Sommet</h2>
+              <Select onChange={(e) => handleInputChangeSommet(e)} name="sommet" id="sommet">
+                <option disabled value="">Select Sommet</option>
+                {data && data.nodes?.map((item) => (
                     <option value={item.id}>{item.id}</option>
                   ))}
               </Select>
-              {/* <Input
-                onChange={(e) => handleInputChange(e)}
-                name="weigth"
-                type="number"
-                placeholder="link weigth"
-              /> */}
-
               <button onClick={deletSommet}>Suprimmer</button>
-            {/* </form> */}
           </div>
         </Modal>
       </ButtonList>
