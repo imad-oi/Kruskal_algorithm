@@ -1,27 +1,26 @@
-import styled from "styled-components";
+const linkType = {
+  STRAIGHT: "STRAIGHT", CURVE_SMOOTH: "CURVE_SMOOTH", CURVE_FULL: "CURVE_FULL "
+};
+const type = linkType.CURVE_SMOOTH;
+const renderLabel = true;
+const labelProperty = (link) => {
+  return `${link.width}`;
+};
 
-const PreStyled = styled.pre`
-  background-color: #f5f5f5;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  height: 300px;
-  overflow: scroll;
-  font-family: "Courier New", Courier, monospace;
-`;
+const config = {
+  nodeHighlightBehavior: true,
+  node: {
+    color: "blue", fontColor: "blue", size: 100, fontSize: 14, highlightStrokeColor: "blue"
+  },
+  link: {
+    color: "#222", highlightColor: "red", fontSize: 14, labelProperty, type, renderLabel
+  }
+};
 
-const GraphConfig = ({ data }) => {
+const GraphConfig = ({ setConfig }) => {
+  setConfig(config)
   return (
-    <div
-      style={{
-        // backgroundColor: "green",
-        width: "100%",
-        // height : '100vh',
-        flex: 1,
-      }}
-    >
-      <p>GraphData</p>
-      <PreStyled>{JSON.stringify(data, null, 2)} </PreStyled>
+    <div>
     </div>
   );
 };
