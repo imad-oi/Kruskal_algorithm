@@ -218,9 +218,9 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
       {nodesToBeDeleted.length > 0 && (
         <div>
           <hr className="my-2" />
-          <h3 className="heading-5 py-!">Nodes to be deleted</h3>
+          <h3 className="heading-5 py-1">Nodes to be deleted</h3>
           <hr className="my-2" />
-          <ul className="flex flex-col gap-1 py-2 h-[30vh] overflow-y-scroll ">
+          <ul className="space-y-2">
             {nodesToBeDeleted?.map((node) => (
               <li key={node} className="flex justify-between items-center">
                 <span className="text-black font-bold">&#x25cf; {node.id}</span>
