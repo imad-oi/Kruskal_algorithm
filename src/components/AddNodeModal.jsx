@@ -16,6 +16,11 @@ export default function AddNodeModal({ data, setData }) {
     return link.source?.trim().length > 0;
   };
 
+  const isNodeConnected = (nodeId) => {
+    return data.links.some(l => l.source === link.source && l.target === nodeId);
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -44,7 +49,6 @@ export default function AddNodeModal({ data, setData }) {
       }
     }
 
-    // console.log(newData)
     setData(newData)
     setLink({...link, weigth: 1, target: ""});
   };
@@ -65,7 +69,7 @@ export default function AddNodeModal({ data, setData }) {
           name="target" id="target" placeholder="Target Node"
         >
           <option disabled value="">Select target</option>
-          {data?.nodes?.filter(n => n.id !== link.source).map((item) => (
+          {data?.nodes?.filter(n => n.id !== link.source  && !isNodeConnected(n.id)).map((item) => (
             <option key={data?.nodes?.indexOf(item)} value={item?.id}>{item?.id}</option>
           ))}
         </select>

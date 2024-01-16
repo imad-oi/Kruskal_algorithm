@@ -1,3 +1,10 @@
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 class Graph {
   constructor(vertices) {
     this.numVertices = vertices;
@@ -26,6 +33,7 @@ class Graph {
 
   kruskalMST(color = "blue") {
     const result = [];
+    shuffleArray(this.edges);
     this.edges.sort((a, b) => a.weigth - b.weigth);
 
     const parent = [];
@@ -59,11 +67,6 @@ class Graph {
 }
 
 export default function kruskalAlgo(data, color = "blue") {
-  // const namesNumbers = []
-  // data.nodes.forEach((node, index) => {
-  //     namesNumbers.push({ index, id: node.id });
-  // });
-
   const graph = new Graph(data.nodes.length);
   data.links.forEach(link => graph.addEdge(
     data.nodes.indexOf(data.nodes.find(n => n.id === link.source)),
@@ -71,22 +74,19 @@ export default function kruskalAlgo(data, color = "blue") {
     link.weigth
   ));
 
-  const MST = graph.kruskalMST(color);
-
-  const result = {
+  return {
     nodes: data.nodes,
-    links: MST.map(link => {
-      const newLink = {
-        source: data.nodes[parseInt(link.source)].id,
-        target: data.nodes[parseInt(link.target)].id,
-        weigth: link.weigth
-      };
-      if (link.color) {
-        newLink.color = link.color;
-      }
-      return newLink;
-    })
+    links: graph.kruskalMST(color)
+      .map(link => {
+        const newLink = {
+          source: data.nodes[parseInt(link.source)].id,
+          target: data.nodes[parseInt(link.target)].id,
+          weigth: link.weigth
+        };
+        if (link.color) {
+          newLink.color = link.color;
+        }
+        return newLink;
+      })
   };
-  console.log(result);
-  return result;
 }
