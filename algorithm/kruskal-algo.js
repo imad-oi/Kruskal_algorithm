@@ -31,7 +31,7 @@ class Graph {
         const parent = [];
         const rank = [];
 
-        for (let i = 0; i < this.numVertices; i++) {
+        for (let i = 0; i <= this.numVertices; i++) {
             parent[i] = i;
             rank[i] = 0;
         }
@@ -39,8 +39,12 @@ class Graph {
         let edgeIndex = 0;
         let resultIndex = 0;
 
-        while (resultIndex < this.numVertices - 1) {
+        while (resultIndex < this.numVertices) {
+            console.log(edgeIndex)
+            console.log(this.edges)
             const edge = this.edges[edgeIndex++];
+            console.log(edge)
+            console.log("-------------------------------")
 
             const { source, target, weigth } = edge;
             const root1 = this.findRoot(parent, source);
@@ -56,25 +60,9 @@ class Graph {
         return this.edges;
     }
 }
-/*
-
-// Example usage:
-const numVertices = 4;
-const graph = new Graph(numVertices);
-
-// Adding edges (source, target, weigth)
-graph.addEdge(0, 1, 10);
-graph.addEdge(0, 2, 6);
-graph.addEdge(0, 3, 5);
-graph.addEdge(1, 3, 15);
-graph.addEdge(2, 3, 4);
-
-const minimumSpanningTree = graph.kruskalMST();
-console.log("Minimum Spanning Tree:", minimumSpanningTree);
-*/
 
 export default function kruskalAlgo(data, color = "blue") {
-    const graph = new Graph(data.nodes.length);
+    const graph = new Graph(data.nodes.length - 1);
     data.links.forEach(link => graph.addEdge(link.source, link.target, link.weigth))
     return {
         nodes: data.nodes,
