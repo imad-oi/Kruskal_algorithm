@@ -1,4 +1,3 @@
-
 #graph-id-graph-wrapper {
   width: 80vw !important;
   height: 80vh !important;
@@ -7,4 +6,30 @@
 svg[name="svg-container-graph-id"] {
   width: 100% !important;
   height: 100% !important;
+
+  & #graph-id-graph-container-zoomable {
+    /* transform: translate(0, 0) !important; */
+  }
+}
+
+/*  create variable  */
+:root {
+  --bg-img: url("https://cdn.pixabay.com/photo/2020/08/25/00/48/mountains-5515324_640.jpg");
+}
+
+#nav-1 {
+  background-image: var(--bg-img) !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+
+  /* add some blur */
+  /* filter: blur(1px); */
+}
+/* https://img.cdn-pictorem.com/uploads/collection/P/PA1NJI6GQG/900_WorldFlag_world-map-146505.png */
+#graph {
+  background-image: url("https://media.istockphoto.com/id/1129202445/vector/world-map.jpg?s=2048x2048&w=is&k=20&c=YHPCH7YKn0-1X0Q_AKh44Q0jfDJKTReaChczylgHbVE=");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

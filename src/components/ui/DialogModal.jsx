@@ -4,9 +4,6 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
   const [selectedTargets, setSelectedTargets] = useState({});
   const [weights, setWeights] = useState({});
   const [isAddNewLink, setIsAddNewLink] = useState(false);
-  const [isWeightEditable, setIsWeightEditable] = useState(false);
-
-  console.log(node);
 
   // for new link
   const [target, setTarget] = useState("");
@@ -72,8 +69,7 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
       target: target,
       weigth: weight,
     };
-    console.log(newLink);
-
+    
     const newLinks = data.links.concat(newLink);
     // node.links = node.links.concat(newLink);
     setNode({ ...node, links: node.links.concat(newLink) });
@@ -81,7 +77,6 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
   };
 
   const handleDeleteLink = (source, target) => {
-    console.log({ source, target });
     // Delete your link here
     const newNodeLinks = node.links.filter(
       (item) => !(item.source === source && item.target === target)
@@ -123,7 +118,7 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <ul>
                   <li className="flex justify-between py-2">
-                    <p>Current links :</p>
+                    <p>Current links : </p>
                     <button
                       className="btn"
                       onClick={() => setIsAddNewLink((prev) => !prev)}
@@ -145,6 +140,7 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
                           name="target"
                           id="target"
                         >
+                          <option value="">select one</option>
                           {data.nodes
                             .filter(
                               (item) =>

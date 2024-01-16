@@ -1,15 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 import Alert from "./components/Alert.jsx";
-import GraphConfig from "./components/GraphConfig.jsx";
+import GraphConfig, {
+  config as initialConfig,
+} from "./components/GraphConfig.jsx";
 import GraphFeed from "./components/GraphFeed";
-import HeaderBar from "./components/HeaderBar";
+import HeaderBar from "./components/HeaderBar.jsx";
 
 const defaultData = {
-  nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }],
+  nodes: [
+    { id: "canada", x: 100, y: 100 },
+    { id: "Sally", x: 200, y: 100 },
+    { id: "Alice", x: 300, y: 100 },
+    { id: "Jerry", x: 400, y: 100 },
+  ],
   links: [
-    { source: "Harry", target: "Sally", weigth: 2 },
-    { source: "Harry", target: "Alice", weigth: 4 },
+    { source: "canada", target: "Sally", weigth: 2 },
+    { source: "canada", target: "Alice", weigth: 4 },
     { source: "Sally", target: "Alice", weigth: 5 },
     { source: "Jerry", target: "Alice", weigth: 6 },
   ],
@@ -17,20 +24,33 @@ const defaultData = {
 
 export default function App() {
   const [data, setData] = useState(defaultData);
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState(initialConfig);
   const [alertMessage, setAlertMessage] = useState("");
   const [nodesToBeDeleted, setNodesToBeDeleted] = useState([]); // [nodeId1, nodeId2, ...
   const [mode, setMode] = useState("add"); // ["add", "delete" ]
 
-  console.log(nodesToBeDeleted);
-  console.log(mode);
+  data.nodes.forEach((node) => {
+    node.color = getNodeColor(node?.id);
+  });
+
+  function getNodeColor(nodeId) {
+    // Vérifiez si le nœud est dans la liste nodesToBeDeleted
+    const isNodeToBeDeleted = nodesToBeDeleted.some(
+      (deletedNode) => deletedNode?.id === nodeId
+    );
+
+    // Utilisez une couleur spécifique si le nœud doit être supprimé
+    return isNodeToBeDeleted ? "#FF0000" : config?.node?.color;
+  }
+
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div id="app" className="flex flex-col h-screen w-full">
       <div className="">
         <HeaderBar
+          mode={mode}
+          setMode={setMode}
           data={data}
           setData={setData}
-          setMode={setMode}
           setAlertMessage={setAlertMessage}
           nodesToBeDeleted={nodesToBeDeleted}
           setNodesToBeDeleted={setNodesToBeDeleted}
@@ -44,7 +64,7 @@ export default function App() {
             setConfig={setConfig}
           />
         </div>
-        <div className="w-4/5 flex flex-col">
+        <div id="graph" className="w-4/5 flex flex-col">
           <Alert message={alertMessage} />
           <GraphFeed
             nodesToBeDeleted={nodesToBeDeleted}

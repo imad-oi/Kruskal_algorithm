@@ -12,12 +12,14 @@ export default function GraphFeed({
 }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [node, setNode] = useState(null);
+
   const onClickNode = function (nodeId) {
     const node = {
       id: nodeId,
-      links: data.links?.filter((l) => l.source === nodeId),
+      links: data.links?.filter((l) => l.source === nodeId ),
     };
     setNode(node);
+    console.log(node);
 
     if (mode === "delete") {
       setNodesToBeDeleted((prev) => {
