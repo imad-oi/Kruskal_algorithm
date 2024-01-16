@@ -36,6 +36,10 @@ const config = {
     type,
     renderLabel,
   },
+  // d3: {
+  //   gravity: -300,
+  //   linkLength: 120,
+  // },
 };
 
 const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
@@ -116,9 +120,8 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
         </div>
       </div>
       {/* nodes to be deleted */}
-      
-      {
-        nodesToBeDeleted.length > 0 && (
+
+      {nodesToBeDeleted.length > 0 && (
         <div>
           <hr className="my-2" />
           <h3 className="heading-5 py-!">Nodes to be deleted</h3>

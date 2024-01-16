@@ -48,6 +48,7 @@ const HeaderBar = ({
   setAlertMessage,
   nodesToBeDeleted,
   setNodesToBeDeleted,
+  setMode,
 }) => {
   const [link, setLink] = useState({ source: "", target: "", weigth: 1 });
   const [sommet, setSommet] = useState({});
@@ -117,9 +118,11 @@ const HeaderBar = ({
   const handleDeleteNodes = () => {
     if (nodesToBeDeleted.length === 0) {
       setAlertMessage("please select  nodes to delete");
+      setMode("delete");
       setTimeout(() => {
         setAlertMessage("");
       }, 3000);
+      return;
     }
     const updatedNodes = data.nodes.filter(
       (node) => !nodesToBeDeleted.some((n) => n.id === node.id)
@@ -136,6 +139,7 @@ const HeaderBar = ({
       links: updatedLinks,
     }));
     setNodesToBeDeleted([]);
+    setMode("add");
   };
 
   return (
