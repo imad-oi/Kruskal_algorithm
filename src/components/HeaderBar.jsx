@@ -15,14 +15,16 @@ export const Form = styled.form`
     gap: 10px;
     flex-wrap: wrap;
 `;
-
-const HeaderBar = ({ setData, data }) => {
+export var configResultColor={
+  color:"#000000"
+}
+const HeaderBar = ({ setData, data,configResulColor }) => {
   return (
     <nav className="bg-black py-6 flex flex-col ">
       <h3 className="heading-1 pb-5">Kruskal algorithm</h3>
       <div className="flex justify-center gap-3">
         <button className="btn" onClick={() => {
-          let result = kruskalAlgo(data, "blue");
+          let result = kruskalAlgo(data, configResulColor);
           console.log(result)
           setData(result);
         }}>Apply Kruskal</button>

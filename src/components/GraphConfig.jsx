@@ -1,3 +1,5 @@
+import { configResultColor } from "./HeaderBar";
+
 const linkType = {
   STRAIGHT: "STRAIGHT",
   CURVE_SMOOTH: "CURVE_SMOOTH",
@@ -42,7 +44,7 @@ export const config = {
   },
 };
 
-const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
+const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted ,setConfigResulColor}) => {
   const handleColorChangeOfLink = (e) => {
     config.link.color = e.target.value;
     const config1 = {
@@ -60,6 +62,11 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
       link: { ...config.link },
     };
     setConfig(config1);
+  };
+  const handleResultColorChange = (e) => {
+    configResultColor.color = e.target.value;
+    const config1 = {...configResultColor.color };
+    setConfigResulColor(config1);
   };
   const handleSymbolChange = (e) => {
     config.node.symbolType = e.target.value;
@@ -135,6 +142,17 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
             id="colornode"
             value={config.node.color}
             onChange={handleColorChangeOfNoeud}
+          />
+        </div>
+        <div className="flex justify-between items-center w-full">
+          <label className="heading-5" htmlFor="colornode">
+           Color Result :{" "}
+          </label>
+          <input
+            type="color"
+            id="colornode"
+            value={configResultColor.color}
+            onChange={handleResultColorChange}
           />
         </div>
         <div className="flex justify-between items-center w-full">

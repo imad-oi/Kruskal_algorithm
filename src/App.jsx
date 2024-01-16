@@ -1,6 +1,6 @@
 import { useState } from "react";
 import GraphFeed from "./components/GraphFeed";
-import HeaderBar from "./components/HeaderBar";
+import HeaderBar, { configResultColor } from "./components/HeaderBar";
 import axios from "axios";
 import "./App.css";
 import GraphConfig from "./components/GraphConfig.jsx";
@@ -20,6 +20,7 @@ const defaultData = {
 export default function App() {
   const [data, setData] = useState(defaultData);
   const [config, setConfig] = useState(initialConfig);
+  const [configResulColor, setConfigResulColor] = useState(configResultColor.color);
   const [alertMessage, setAlertMessage] = useState("");
   const [nodesToBeDeleted, setNodesToBeDeleted] = useState([]); // [nodeId1, nodeId2, ...
 
@@ -75,6 +76,8 @@ export default function App() {
           setAlertMessage={setAlertMessage}
           nodesToBeDeleted={nodesToBeDeleted}
           setNodesToBeDeleted={setNodesToBeDeleted}
+          configResulColor={configResulColor}
+          setConfigResulColor={setConfigResulColor}
         />
       </div>
       <div className="flex flex-grow ">
@@ -83,6 +86,7 @@ export default function App() {
             nodesToBeDeleted={nodesToBeDeleted}
             setNodesToBeDeleted={setNodesToBeDeleted}
             setConfig={setConfig}
+            setConfigResulColor={setConfigResulColor}
           />
         </div>
         <div className="w-4/5">
