@@ -25,12 +25,10 @@ export default function App() {
   });
 
   function getNodeColor(nodeId) {
-    // Vérifiez si le nœud est dans la liste nodesToBeDeleted
     const isNodeToBeDeleted = nodesToBeDeleted.some(
       (deletedNode) => deletedNode?.id === nodeId
     );
 
-    // Utilisez une couleur spécifique si le nœud doit être supprimé
     return isNodeToBeDeleted ? "#FF0000" : config?.node?.color;
   }
 
