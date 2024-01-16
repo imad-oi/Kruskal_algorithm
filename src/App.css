@@ -8,7 +8,7 @@ svg[name="svg-container-graph-id"] {
   height: 100% !important;
 
   & #graph-id-graph-container-zoomable {
-    /* transform: translate(0, 0) !important; */
+    transform: translate(0, 0) !important;
   }
 }
 
@@ -28,7 +28,9 @@ svg[name="svg-container-graph-id"] {
 }
 /* https://img.cdn-pictorem.com/uploads/collection/P/PA1NJI6GQG/900_WorldFlag_world-map-146505.png */
 #graph {
-  background-image: url("https://media.istockphoto.com/id/1129202445/vector/world-map.jpg?s=2048x2048&w=is&k=20&c=YHPCH7YKn0-1X0Q_AKh44Q0jfDJKTReaChczylgHbVE=");
+  /* background-image: url("https://media.istockphoto.com/id/1277827275/vector/new-zealand-map.jpg?s=2048x2048&w=is&k=20&c=0v4fWIpqVmICxkJaku9SvQBG1Pi-3qov5-rLOvdF_y4="); 
+  */
+  background-image: url("/map_finale.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
