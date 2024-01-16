@@ -7,13 +7,23 @@ import GraphConfig from "./components/GraphConfig.jsx";
 import Alert from "./components/Alert.jsx";
 import { config as initialConfig } from "./components/GraphConfig.jsx";
 
+// const defaultData = {
+//   nodes: [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }],
+//   links: [
+//     { source: "1", target: "2", weigth: 1 },
+//     { source: "1", target: "3", weigth: 2 },
+//     { source: "2", target: "3", weigth: 4 },
+//     { source: "4", target: "3", weigth: 3 },
+//   ],
+// };
+
 const defaultData = {
-  nodes: [/*{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }*/],
+  nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }, { id: "Jerry" }],
   links: [
-    // { source: "Harry", target: "Sally", weigth: 1 },
-    // { source: "Harry", target: "Alice", weigth: 1 },
-    // { source: "Sally", target: "Alice", weigth: 1 },
-    // { source: "Jerry", target: "Alice", weigth: 1 },
+    { source: "Harry", target: "Sally", weigth: 1 },
+    { source: "Harry", target: "Alice", weigth: 1 },
+    { source: "Sally", target: "Alice", weigth: 1 },
+    { source: "Jerry", target: "Alice", weigth: 1 },
   ],
 };
 

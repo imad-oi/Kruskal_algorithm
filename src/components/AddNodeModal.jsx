@@ -44,7 +44,7 @@ export default function AddNodeModal({ data, setData }) {
       }
     }
 
-    console.log(newData)
+    // console.log(newData)
     setData(newData)
     setLink({...link, weigth: 1, target: ""});
   };
