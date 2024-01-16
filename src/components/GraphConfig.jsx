@@ -21,13 +21,13 @@ const symbolType = {
 export const config = {
   nodeHighlightBehavior: true,
   staticGraph: true,
-  panAndZoom: false,  // Disable pan and zoom
   node: {
-    color: "#000000",
-    fontColor: "blue",
-    symbolType: "star",
-    size: 100,
+    color: "#67009a",
+    fontColor: "#67009a",
+    symbolType: symbolType.CIRCLE,
+    size: 40,
     fontSize: 14,
+    fontWeight: 500,
     highlightStrokeColor: "black",
   },
   link: {
