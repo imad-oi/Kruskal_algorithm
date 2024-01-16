@@ -137,7 +137,7 @@ const HeaderBar = ({
           <button
             className="btn"
             onClick={() => {
-              let result = kruskalAlgo(data, "blue");
+              let result = kruskalAlgo(data, "red");
               console.log(result);
               setData(result);
             }}
@@ -179,6 +179,20 @@ const HeaderBar = ({
         </div>
       </nav>
     </div>
+    // <nav className="bg-black py-6 flex flex-col ">
+    //   <h3 className="heading-1 pb-5">Kruskal algorithm</h3>
+    //   <div className="flex justify-center gap-3">
+    //     <button className="btn" disabled={data.links?.length === 0} onClick={() => {
+    //       let result = kruskalAlgo(data, "red");
+    //       setData(result);
+    //     }}>Apply Kruskal</button>
+    //     <Modal hideBtn={"cancel"} showBtn={"Add Node"} style={{ margin: "auto 0 0 auto" }}>
+    //       <AddNodeModal data={data} setData={setData} />
+    //     </Modal>
+    //     <button className="btn">Delete Nodes</button>
+    //     <button className="btn" onClick={() => setData({ nodes: [], links: [] })}>Reset Graph</button>
+    //   </div>
+    // </nav>
   );
 };
 

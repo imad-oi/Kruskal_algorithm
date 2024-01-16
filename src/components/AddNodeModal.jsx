@@ -17,19 +17,22 @@ export default function AddNodeModal({ data, setData }) {
     return link.source?.trim().length > 0;
   };
 
+  const isNodeConnected = (nodeId) => {
+    return data.links.some(l => l.source === link.source && l.target === nodeId);
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newData = { nodes: data.nodes, links: data.links };
 
-    console.log(link);
     if (!isLinkValid) {
       setLink({ ...initLink });
       return;
     }
 
     const sourceAlreadyExists = data?.nodes?.some((node) => node.id === link.source);
-    console.log(sourceAlreadyExists);
 
     if (link?.target === "") {
       if (!sourceAlreadyExists) newData.nodes = [...data?.nodes, { id: link.source }];
@@ -47,9 +50,8 @@ export default function AddNodeModal({ data, setData }) {
       }
     }
 
-    console.log(newData)
     setData(newData)
-    setLink({ ...initLink });
+    setLink({...link, weigth: 1, target: ""});
   };
 
   return <>
@@ -68,7 +70,7 @@ export default function AddNodeModal({ data, setData }) {
           name="target" id="target" placeholder="Target Node"
         >
           <option disabled value="">Select target</option>
-          {data?.nodes?.map((item) => (
+          {data?.nodes?.filter(n => n.id !== link.source  && !isNodeConnected(n.id)).map((item) => (
             <option key={data?.nodes?.indexOf(item)} value={item?.id}>{item?.id}</option>
           ))}
         </select>
