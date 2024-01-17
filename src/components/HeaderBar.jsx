@@ -168,7 +168,7 @@ const HeaderBar = ({
             Reset Graph
           </button>
           <button
-            className={`${mode === "add" ? "btn" : "btn-delete"}`}
+            className={`${mode === "add" ? "btn-submit" : "btn-delete"}`}
             onClick={() =>
               setMode((prev) => {
                 if (prev === "add") return "delete";

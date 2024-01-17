@@ -7,30 +7,11 @@ import GraphConfig, {
 import GraphFeed from "./components/GraphFeed";
 import HeaderBar from "./components/HeaderBar.jsx";
 
-// const defaultData = {
-//   nodes: [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }],
-//   links: [
-//     { source: "1", target: "2", weigth: 1 },
-//     { source: "1", target: "3", weigth: 2 },
-//     { source: "2", target: "3", weigth: 4 },
-//     { source: "4", target: "3", weigth: 3 },
-//   ],
-// };
-
 const defaultData = {
-  nodes: [
-    { id: "canada", x: 100, y: 100 },
-    { id: "Sally", x: 200, y: 100 },
-    { id: "Alice", x: 300, y: 100 },
-    { id: "Jerry", x: 400, y: 100 },
-  ],
-  links: [
-    { source: "canada", target: "Sally", weigth: 2 },
-    { source: "canada", target: "Alice", weigth: 4 },
-    { source: "Sally", target: "Alice", weigth: 5 },
-    { source: "Jerry", target: "Alice", weigth: 6 },
-  ],
-};
+  nodes: [],
+  links: []
+}
+
 
 export default function App() {
   const [data, setData] = useState(defaultData);
@@ -44,12 +25,10 @@ export default function App() {
   });
 
   function getNodeColor(nodeId) {
-    // Vérifiez si le nœud est dans la liste nodesToBeDeleted
     const isNodeToBeDeleted = nodesToBeDeleted.some(
       (deletedNode) => deletedNode?.id === nodeId
     );
 
-    // Utilisez une couleur spécifique si le nœud doit être supprimé
     return isNodeToBeDeleted ? "#FF0000" : config?.node?.color;
   }
 

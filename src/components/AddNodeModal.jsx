@@ -1,57 +1,62 @@
 import { Form, Button } from "./HeaderBar.jsx";
 import { useState } from "react";
+import countries from "../../countries/Countries.js";
 
-const initLink = { source: "", target: "", weigth: 1 };
+const initLink = { source: countries[0], target: countries[1], weigth: 1 };
 export default function AddNodeModal({ data, setData }) {
   const [link, setLink] = useState({ ...initLink });
   
   const handleInputChange = (e) => {
     const { value, name } = e.target;
+
+    console.log(value, name)
+
     setLink((prev) => ({
       ...prev,
-      [name]: name === "weigth" ? parseInt(value) : value
+      [name]: name === "weigth" ? parseInt(value) : countries.filter(c => c.id === value)[0]
     }));
   };
 
-  const isLinkValid = () => {
-    return link.source?.trim().length > 0;
+  const isNodeConnected = (country) => {
+    return data.links.some(l => l.source === link.source.id && l.target === country.id);
   };
-
-  const isNodeConnected = (nodeId) => {
-    return data.links.some(l => l.source === link.source && l.target === nodeId);
-  };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const linkStr = {source: link.source?.id, target: link.target?.id, weigth: link.weigth}
+    const sourceNode = {...link.source, color: "#000"}
+    const targetNode = {...link.target, color: "#000"}
+
+    console.log(linkStr)
+    console.log(link)
 
     const newData = { nodes: data.nodes, links: data.links };
 
-    if (!isLinkValid) {
-      setLink({ ...initLink });
-      return;
-    }
+    const sourceAlreadyExists = data?.nodes?.some((node) => node.id === linkStr.source);
+    const targetAlreadyExists = data?.nodes?.some((node) => node.id === linkStr.target);
 
-    const sourceAlreadyExists = data?.nodes?.some((node) => node.id === link.source);
-
-    if (link?.target === "") {
-      if (!sourceAlreadyExists) newData.nodes = [...data?.nodes, { id: link.source }];
+    if (!linkStr.target) {
+      if (!sourceAlreadyExists) newData.nodes.push(sourceNode);
     } else {
       if (sourceAlreadyExists) {
         const linkAlreadyExists = data?.links?.some(l =>
-          l.source === link.source
-          && l.target === link.target
-          && l.weigth === link.weigth
+          l.source === linkStr.source
+          && l.target === linkStr.target
+          && l.weigth === linkStr.weigth
         );
-        if (!linkAlreadyExists) newData.links = [...data?.links, link];
+        if (!linkAlreadyExists) {
+          if (!targetAlreadyExists) newData.nodes.push(targetNode)
+          newData.links.push(linkStr);
+        }
       } else {
-        newData.nodes = [...data.nodes, { id: link.source }];
-        newData.links = [...data?.links, link];
+        newData.nodes.push(sourceNode);
+        if (!targetAlreadyExists) newData.nodes.push(targetNode)
+        newData.links = [...data?.links, linkStr];
       }
     }
 
+    console.log(newData)
     setData(newData)
-    setLink({...link, weigth: 1, target: ""});
   };
 
   return <>
@@ -59,24 +64,27 @@ export default function AddNodeModal({ data, setData }) {
       <h2 className="heading-3 py-2">Add new node</h2>
       <hr className="my-2" />
       <Form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          onChange={(e) => handleInputChange(e)} value={link?.source}
-          name="source" type="text" placeholder="Source Node" className="input"
-        />
         <select
           className="select w-full"
-          disabled={data?.nodes?.length === 0}
-          onChange={(e) => handleInputChange(e)} value={link?.target}
+          onChange={(e) => handleInputChange(e)} value={link?.source?.id}
+          name="source" id="source" placeholder="Target Node"
+        >
+          {countries?.map((item) => (
+            <option key={countries?.indexOf(item)} value={item?.id}>{item?.id}</option>
+          ))}
+        </select>
+        <select
+          className="select w-full"
+          onChange={(e) => handleInputChange(e)} value={link?.target?.id}
           name="target" id="target" placeholder="Target Node"
         >
-          <option disabled value="">Select target</option>
-          {data?.nodes?.filter(n => n.id !== link.source  && !isNodeConnected(n.id)).map((item) => (
-            <option key={data?.nodes?.indexOf(item)} value={item?.id}>{item?.id}</option>
+          {countries?.filter(n => n.id !== link.source.id && !isNodeConnected(n)).map((item) => (
+            <option key={countries?.indexOf(item)} value={item?.id}>{item?.id}</option>
           ))}
         </select>
         <input onChange={(e) => handleInputChange(e)} value={link?.weigth}
                name="weigth" type="number" placeholder="link weigth" className="input" />
-        <Button className="btn-submit" type="submit" value="add" disabled={!isLinkValid()} />
+        <Button className="btn-submit" type="submit" value="add" />
       </Form>
     </div>
   </>;
