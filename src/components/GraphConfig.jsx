@@ -112,12 +112,14 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
   return (
     <div className="bg-slate-50 h-full border-e p-2 space-y-4">
       <h3 className="text-center">
-        <span className="heading-1 py-4">Configuration</span>
+        <span className="heading-1 py-4" style={{
+          fontStyle :'italic'
+        }}>Configuration</span>
       </h3>
       <hr className="my-2"/>
       <div className=" flex flex-col items-start gap-3">
         <div className="flex justify-between items-center w-full">
-          <label htmlFor="colorPicker" className="heading-5">
+          <label htmlFor="colorPicker" className="heading-5 ">
             Color Of Link :
           </label>
           <input

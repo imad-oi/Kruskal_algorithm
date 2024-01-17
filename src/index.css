@@ -45,7 +45,7 @@ body {
   }
 
   .heading-5 {
-    @apply text-lg font-bold leading-6 text-center bg-transparent text-violet-300;
+    @apply font-light leading-6 text-center  bg-transparent text-slate-700;
   }
 
   .drawer {

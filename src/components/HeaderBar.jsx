@@ -132,7 +132,9 @@ const HeaderBar = ({
   return (
     <div id="nav">
       <nav id="nav-1" className="py-6 flex flex-col ">
-        <h3 className="heading-1 pb-5">Kruskal algorithm</h3>
+        <h3 className="heading-1 pb-5" style={{
+          fontStyle :'italic'
+        }}>Kruskal algorithm</h3>
         <div className="flex justify-center gap-3">
           <button
             className="btn"
