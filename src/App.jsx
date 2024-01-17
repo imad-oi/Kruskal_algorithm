@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Alert from "./components/Alert.jsx";
 import GraphConfig, {
+  configResultColor,
   config as initialConfig,
 } from "./components/GraphConfig.jsx";
 import GraphFeed from "./components/GraphFeed";
@@ -16,6 +17,7 @@ const defaultData = {
 export default function App() {
   const [data, setData] = useState(defaultData);
   const [config, setConfig] = useState(initialConfig);
+  const [configResulColor, setConfigResulColor] = useState(configResultColor);
   const [alertMessage, setAlertMessage] = useState("");
   const [nodesToBeDeleted, setNodesToBeDeleted] = useState([]); // [nodeId1, nodeId2, ...
   const [mode, setMode] = useState("add"); // ["add", "delete" ]
@@ -43,6 +45,8 @@ export default function App() {
           setAlertMessage={setAlertMessage}
           nodesToBeDeleted={nodesToBeDeleted}
           setNodesToBeDeleted={setNodesToBeDeleted}
+          configResulColor={configResulColor}
+          setConfigResulColor={setConfigResulColor}
         />
       </div>
       <div className="flex flex-grow ">
@@ -51,6 +55,7 @@ export default function App() {
             nodesToBeDeleted={nodesToBeDeleted}
             setNodesToBeDeleted={setNodesToBeDeleted}
             setConfig={setConfig}
+            setConfigResulColor={setConfigResulColor}
           />
         </div>
         <div id="graph" className="w-4/5 flex flex-col">

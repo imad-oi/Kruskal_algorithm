@@ -1,10 +1,12 @@
+// import { configResultColor } from "./HeaderBar";
+
 const linkType = {
   STRAIGHT: "STRAIGHT",
   CURVE_SMOOTH: "CURVE_SMOOTH",
   CURVE_FULL: "CURVE_FULL "
 };
 
-const type = linkType.CURVE_FULL;
+const type = linkType.CURVE_SMOOTH;
 const renderLabel = true;
 const labelProperty = (link) => {
   return `${link.weigth}`;
@@ -31,7 +33,7 @@ export const config = {
     highlightStrokeColor: "black"
   },
   link: {
-    color: "#000000",
+    color: "#0ACEFF",
     highlightColor: "red",
     fontSize: 14,
     labelProperty,
@@ -43,8 +45,8 @@ export const config = {
     linkLength: 120
   }
 };
-
-const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
+export let configResultColor="#EC098D"
+const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted ,setConfigResulColor}) => {
   const handleColorChangeOfLink = (e) => {
     config.link.color = e.target.value;
     const config1 = {
@@ -62,6 +64,11 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
       link: { ...config.link }
     };
     setConfig(config1);
+  };
+  const handleResultColorChange = (e) => {
+    configResultColor = e.target.value;
+    const config1 =configResultColor ;
+    setConfigResulColor(config1);
   };
   const handleSymbolChange = (e) => {
     config.node.symbolType = e.target.value;
@@ -139,6 +146,17 @@ const GraphConfig = ({ setConfig, setNodesToBeDeleted, nodesToBeDeleted }) => {
             id="colornode"
             value={config.node.color}
             onChange={handleColorChangeOfNoeud}
+          />
+        </div>
+        <div className="flex justify-between items-center w-full">
+          <label className="heading-5" htmlFor="colornode">
+           Color Result :{" "}
+          </label>
+          <input
+            type="color"
+            id="colornode"
+            value={configResultColor}
+            onChange={handleResultColorChange}
           />
         </div>
         <div className="flex justify-between items-center w-full">

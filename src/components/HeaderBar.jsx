@@ -21,7 +21,8 @@ const HeaderBar = ({
   data,
   mode,
   nodesToBeDeleted,
-  //
+  configResulColor,
+  setConfigResulColor,
   setAlertMessage,
   setData,
   setNodesToBeDeleted,
@@ -139,7 +140,7 @@ const HeaderBar = ({
           <button
             className="btn"
             onClick={() => {
-              let result = kruskalAlgo(data, "red");
+              let result = kruskalAlgo(data, configResulColor);
               console.log(result);
               setData(result);
             }}
