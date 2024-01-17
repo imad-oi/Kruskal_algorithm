@@ -6,9 +6,9 @@ const Alert = ({ message }) => {
       {message === "" ? null : (
         <div
           id="alert"
-          className="fixed z-50 bg-green-500 w-full mx-auto p-4 rounded-md mt-2 transition-all duration-700 ease-in-out"
+          className="fixed z-5 bg-red-200 w-full mx-auto p-4 rounded-md mt-2 transition-all duration-700 ease-in-out"
         >
-          {message}
+          <p className="text-red-700 font-bold">{message}</p>
         </div>
       )}
     </>
