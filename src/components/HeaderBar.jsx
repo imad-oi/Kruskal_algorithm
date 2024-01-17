@@ -23,9 +23,8 @@ const HeaderBar = ({ setData, data,configResulColor }) => {
     <nav className="bg-black py-6 flex flex-col ">
       <h3 className="heading-1 pb-5">Kruskal algorithm</h3>
       <div className="flex justify-center gap-3">
-        <button className="btn" onClick={() => {
-          let result = kruskalAlgo(data, configResulColor);
-          console.log(result)
+        <button className="btn" disabled={data.links?.length === 0} onClick={() => {
+          let result = kruskalAlgo(data, "blue");
           setData(result);
         }}>Apply Kruskal</button>
         <Modal hideBtn={"cancel"} showBtn={"Add Node"} style={{ margin: "auto 0 0 auto" }}>

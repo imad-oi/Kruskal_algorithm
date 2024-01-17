@@ -31,7 +31,7 @@ class Graph {
         const parent = [];
         const rank = [];
 
-        for (let i = 0; i <= this.numVertices; i++) {
+        for (let i = 0; i < this.numVertices; i++) {
             parent[i] = i;
             rank[i] = 0;
         }
@@ -39,12 +39,8 @@ class Graph {
         let edgeIndex = 0;
         let resultIndex = 0;
 
-        while (resultIndex < this.numVertices) {
-            console.log(edgeIndex)
-            console.log(this.edges)
+        while (resultIndex < this.numVertices - 1 || edgeIndex < this.edges.length) {
             const edge = this.edges[edgeIndex++];
-            console.log(edge)
-            console.log("-------------------------------")
 
             const { source, target, weigth } = edge;
             const root1 = this.findRoot(parent, source);
@@ -62,7 +58,7 @@ class Graph {
 }
 
 export default function kruskalAlgo(data, color = "blue") {
-    const graph = new Graph(data.nodes.length - 1);
+    const graph = new Graph(data.nodes.length);
     data.links.forEach(link => graph.addEdge(link.source, link.target, link.weigth))
     return {
         nodes: data.nodes,
