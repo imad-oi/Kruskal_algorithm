@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import countries from "../../../countries/Countries";
 
 const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
   const [selectedTargets, setSelectedTargets] = useState({});
@@ -36,14 +37,29 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
   const handleUpdateNode = () => {
     // Update your node here
     node.links = node.links.map((link) => {
+      const targetAlreadyExists = data?.nodes?.some(
+        (node) => node.id === link.target
+      );
+      const country = countries.find((item) => item.id === link.target);
+      if (!targetAlreadyExists) {
+        data.nodes.push({ ...country, color: "#000" });
+      }
       if (selectedTargets[link.target]) {
         link.target = selectedTargets[link.target];
+        const targetAlreadyExists = data?.nodes?.some(
+          (node) => node.id === link.target
+        );
+        const country = countries.find((item) => item.id === link.target);
+        if (!targetAlreadyExists) {
+          data.nodes.push({ ...country, color: "#000" });
+        }
       }
       if (weights[link.target]) {
         link.weigth = weights[link.target];
       }
       return link;
     });
+
     // Update data.links to reflect the changes made in the dialog
     const newLinks = data.links.filter((item) => item.source !== node.id);
     newLinks.push(...node.links);
@@ -64,16 +80,18 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
 
   const handleAddLink = (e) => {
     e.preventDefault();
+    console.log(target, weight);
     const newLink = {
       source: node.id,
       target: target,
       weigth: weight,
     };
-    
+    console.log(newLink);
+
     const newLinks = data.links.concat(newLink);
     // node.links = node.links.concat(newLink);
     setNode({ ...node, links: node.links.concat(newLink) });
-    setData({ ...data, links: newLinks });
+    // setData({ ...data, links: newLinks });
   };
 
   const handleDeleteLink = (source, target) => {
@@ -135,13 +153,24 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
                         <label htmlFor="target">Target</label>
                         <select
                           // onChange={(e) => handleTargetChange(node.id, e)}
-                          onChange={(e) => setTarget(e.target.value)}
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                            setTarget(e.target.value);
+                          }}
                           className="select"
                           name="target"
                           id="target"
                         >
                           <option value="">select one</option>
-                          {data.nodes
+                          {countries?.map((item) => (
+                            <option
+                              key={countries?.indexOf(item)}
+                              value={item?.id}
+                            >
+                              {item?.id}
+                            </option>
+                          ))}
+                          {/* {data.nodes
                             .filter(
                               (item) =>
                                 item.id !== node.id &&
@@ -151,7 +180,7 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
                             )
                             .map((item) => (
                               <option value={item.id}> {item.id} </option>
-                            ))}
+                            ))} */}
                         </select>
                       </div>
                       <div className="flex flex-col justify-between py-2">
@@ -207,11 +236,17 @@ const DialogModal = ({ open, setOpen, node, setNode, data, setData }) => {
                                   handleTargetChange(link.target, e)
                                 }
                               >
-                                {data.nodes
-                                  .filter((node) => node.id !== link.source)
-                                  .map((item) => (
-                                    <option value={item.id}> {item.id} </option>
-                                  ))}
+                                {
+                                  // data.nodes
+                                  countries
+                                    .filter((node) => node.id !== link.source)
+                                    .map((item) => (
+                                      <option value={item.id}>
+                                        {" "}
+                                        {item.id}{" "}
+                                      </option>
+                                    ))
+                                }
                               </select>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
